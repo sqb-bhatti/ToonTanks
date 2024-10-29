@@ -5,7 +5,6 @@
 
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
-#include "InputMappingContext.h"
 #include "InputAction.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
@@ -25,7 +24,8 @@ ATank::ATank()
 void ATank::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
+	
+	
 	// Get the player controller
 	auto playerController = Cast<APlayerController>(GetController());
 
@@ -36,27 +36,32 @@ void ATank::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponen
 	eiSubsystem->AddMappingContext(inputMapping, 0);
 
 	// Get the EnhancedInputComponent
-	auto playerEIcomponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
+	if(UEnhancedInputComponent* playerEIcomponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
+	{
+		if (inputMoveForward)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
+				TEXT("...Action success..."));
 
-	//Bind Move() to the mapping
-	//BindAction for enhanced system takes Action, ETriggerEvent, object, and function
-	//ETriggerEvent is an enum, where Triggered means "button is held down".
-	playerEIcomponent->BindAction(inputMoveForward, ETriggerEvent::Triggered, this, &ATank::Move);
+			//BindAction for enhanced system takes Action, ETriggerEvent, object, and function
+			//ETriggerEvent is an enum, where Triggered means "button is held down".
+			playerEIcomponent->BindAction(inputMoveForward,
+				ETriggerEvent::Triggered, this, &ATank::MoveForwardBackward);
+		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
+				TEXT("...Action failed..."));
+		}
+	}
 }
 
 
-void ATank::Move(const FInputActionValue & Value)
+void ATank::MoveForwardBackward(const FInputActionValue& Value)
 {
-	//To bind to axis mapping: SetupPlayerInputComponent
-	UE_LOG(LogTemp, Display, TEXT("Float value: %f"), Value.Get<float>());
-	UE_LOG(LogTemp, Display, TEXT("Float value: %f"), Value.Get<float>());
-}
+	FVector DeltaLocation = FVector::ZeroVector;
+	DeltaLocation.X = 2.f;
+	AddActorLocalOffset(DeltaLocation);
 
-// void ATank::Move(const FInputActionValue& Value)
-// {
-// 	float CurrentValue = Value.Get<float>();
-//
-// 	FVector Move = FVector::ZeroVector;
-// 	Move.X = 2.f;
-// 	AddActorLocalOffset(Move);
-// }
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Button pressed"));
+}

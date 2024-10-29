@@ -30,21 +30,21 @@ private:
 
 	//Setting up inputs. Mapping context and Input Action variables, to be set in Blueprint
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input", meta = (AllowPrivateAccess = "true"))
-	class UInputMappingContext * inputMapping;
+	class UInputMappingContext * inputMapping = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input", meta = (AllowPrivateAccess = "true"))
-	class UInputAction * inputMoveForward;
+	class UInputAction * inputMoveForward = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input", meta = (AllowPrivateAccess = "true"))
-	class UInputAction * inputTurn;
+	class UInputAction * inputTurn = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input", meta = (AllowPrivateAccess = "true"))
-	class UInputAction * inputRotateTurret;
+	class UInputAction * inputRotateTurret = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input", meta = (AllowPrivateAccess = "true"))
-	class UInputAction * inputFire;
+	class UInputAction * inputFire = nullptr;
 	
 
 	// function which binds to Move forward axis mapping
-	void Move(const FInputActionValue & Value);
+	void MoveForwardBackward(const FInputActionValue & Value);
 };

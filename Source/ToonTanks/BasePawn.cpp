@@ -28,7 +28,6 @@ ABasePawn::ABasePawn()
 void ABasePawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
@@ -37,7 +36,7 @@ void ABasePawn::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	// FVector DeltaLocation(0.f);  // X, Y and Z set to zero
-	// DeltaLocation.X = 2.0f;
+	// DeltaLocation.X = 5.0f;
 	// AddActorLocalOffset(DeltaLocation);
 }
 
