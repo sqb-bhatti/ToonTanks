@@ -41,9 +41,6 @@ void ATank::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponen
 	{
 		if (inputMoveForward)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
-				TEXT("...Action success..."));
-
 			//BindAction for enhanced system takes Action, ETriggerEvent, object, and function
 			//ETriggerEvent is an enum, where Triggered means "button is held down".
 			playerEIcomponent->BindAction(inputMoveForward,
@@ -53,6 +50,12 @@ void ATank::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponen
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
 				TEXT("...Action failed..."));
+		}
+
+		if (inputTurn)
+		{
+			playerEIcomponent->BindAction(inputTurn,
+				ETriggerEvent::Triggered, this, &ATank::MoveLeftRight);
 		}
 	}
 }
@@ -66,5 +69,16 @@ void ATank::MoveForwardBackward(const FInputActionValue& Value)
 	DeltaLocation.X = Value[1] * Speed * UGameplayStatics::GetWorldDeltaSeconds(this);
 	AddActorLocalOffset(DeltaLocation);
 
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Button pressed"));
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Forward/Backward"));
+}
+
+
+void ATank::MoveLeftRight(const FInputActionValue & Value)
+{
+	float TurnValue = Value.Get<float>();
+	FRotator NewRotation = GetActorRotation();
+	NewRotation.Yaw = Value[1] * TurnRate * UGameplayStatics::GetWorldDeltaSeconds(this);
+	AddActorLocalRotation(NewRotation, true);
+
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Left/Right"));
 }

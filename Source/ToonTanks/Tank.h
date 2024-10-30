@@ -31,6 +31,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	float Speed = 200.0f;
 
+	UPROPERTY(EditAnywhere)
+	float TurnRate = 45.0f;
+
 	//Setting up inputs. Mapping context and Input Action variables, to be set in Blueprint
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input", meta = (AllowPrivateAccess = "true"))
 	class UInputMappingContext * inputMapping = nullptr;
@@ -50,4 +53,6 @@ private:
 
 	// function which binds to Move forward axis mapping
 	void MoveForwardBackward(const FInputActionValue & Value);
+
+	void MoveLeftRight(const FInputActionValue & Value);
 };
