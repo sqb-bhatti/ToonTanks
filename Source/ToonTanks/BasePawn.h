@@ -32,9 +32,7 @@ public:
 
 	UPROPERTY(EditInstanceOnly)
 	int32 EditInstanceOnlyInt = 14;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Speed = 400.0f;
+
 
 protected:
 	// Called when the game starts or when spawned

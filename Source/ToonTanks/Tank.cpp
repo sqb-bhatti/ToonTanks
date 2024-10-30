@@ -7,6 +7,7 @@
 #include "Camera/CameraComponent.h"
 #include "InputAction.h"
 #include "EnhancedInputSubsystems.h"
+#include "Kismet/GameplayStatics.h"
 #include "EnhancedInputComponent.h"
 
 
@@ -59,8 +60,10 @@ void ATank::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponen
 
 void ATank::MoveForwardBackward(const FInputActionValue& Value)
 {
-	FVector DeltaLocation = FVector::ZeroVector;
-	DeltaLocation.X = 2.f;
+	FVector DeltaLocation = Value.Get<FVector>();
+
+	// X = Value * DeltaTime * Speed  (Move tank using Delta time)
+	DeltaLocation.X = Value[1] * Speed * UGameplayStatics::GetWorldDeltaSeconds(this);
 	AddActorLocalOffset(DeltaLocation);
 
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Button pressed"));

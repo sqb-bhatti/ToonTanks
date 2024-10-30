@@ -28,6 +28,9 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	class UCameraComponent* Camera;
 
+	UPROPERTY(EditAnywhere)
+	float Speed = 200.0f;
+
 	//Setting up inputs. Mapping context and Input Action variables, to be set in Blueprint
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input", meta = (AllowPrivateAccess = "true"))
 	class UInputMappingContext * inputMapping = nullptr;
