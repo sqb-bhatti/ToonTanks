@@ -38,6 +38,11 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	// Pass a location(LookAtTarget) in the world as a parameter to function and it will turn the turret towards that
+	// location
+	// Declared and defined in Base class so both childs Tank and Turrent class can use it
+	void RotateTurret(FVector LookAtTarget); 
+
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	class UCapsuleComponent* CapsuleComp;  // Forward declaration of UCapsuleComponent
@@ -66,5 +71,4 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 };

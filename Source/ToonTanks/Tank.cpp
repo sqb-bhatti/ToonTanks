@@ -11,6 +11,7 @@
 #include "EnhancedInputComponent.h"
 
 
+
 ATank::ATank()
 {
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
@@ -57,6 +58,37 @@ void ATank::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponen
 			playerEIcomponent->BindAction(inputTurn,
 				ETriggerEvent::Triggered, this, &ATank::MoveLeftRight);
 		}
+	}
+}
+
+
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();
+
+	PlayerControllerRef = Cast<APlayerController>(GetController());
+}
+
+void ATank::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if(PlayerControllerRef)
+	{
+		FHitResult HitResult;
+		PlayerControllerRef->GetHitResultUnderCursor(ECC_Visibility, false,
+			HitResult);
+
+		DrawDebugSphere(
+		GetWorld(),  // returns a pointer to our current world
+		HitResult.ImpactPoint,
+		25.f,
+		12,
+		FColor::Red,
+		false,
+		-1.f);
+
+		RotateTurret(HitResult.ImpactPoint);
 	}
 }
 

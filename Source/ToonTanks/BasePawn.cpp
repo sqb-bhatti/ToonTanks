@@ -4,6 +4,7 @@
 
 #include "BasePawn.h"
 #include "Components/CapsuleComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ABasePawn::ABasePawn()
@@ -34,16 +35,31 @@ void ABasePawn::BeginPlay()
 void ABasePawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
 
-	// FVector DeltaLocation(0.f);  // X, Y and Z set to zero
-	// DeltaLocation.X = 5.0f;
-	// AddActorLocalOffset(DeltaLocation);
+
+
+// Pass a target location(LookAtTarget) in the world as a parameter to function and it will turn the turrent towards that
+// location
+void ABasePawn::RotateTurret(FVector LookAtTarget)
+{
+	// to get a vector from tank turret start point to end point
+	// It's always the (endpoint - startpoint)
+	FVector ToTarget = LookAtTarget - TurretMesh->GetComponentLocation();
+
+	// Only the rotation around the Z axis
+	FRotator LookAtRotation = FRotator(0.f, ToTarget.Rotation().Yaw, 0.f);
+
+	// "FMath::RInterpTo" used for smooth rotation
+	TurretMesh->SetWorldRotation(FMath::RInterpTo(TurretMesh->GetComponentRotation(),
+		LookAtRotation,
+		UGameplayStatics::GetWorldDeltaSeconds(this),
+		20.f));
 }
 
 // Called to bind functionality to input
 void ABasePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
 }
 
