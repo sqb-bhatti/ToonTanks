@@ -12,6 +12,7 @@
 
 
 
+
 ATank::ATank()
 {
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
@@ -57,6 +58,13 @@ void ATank::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponen
 		{
 			playerEIcomponent->BindAction(inputTurn,
 				ETriggerEvent::Triggered, this, &ATank::MoveLeftRight);
+		}
+
+		if (inputFire)
+		{
+			// Bind Fire action
+			// playerEIcomponent->BindAction(inputFire, IE_Pressed, this, &ATank::Fire);
+			playerEIcomponent->BindAction(inputFire, ETriggerEvent::Triggered, this, &ATank::Fire);
 		}
 	}
 }
@@ -114,3 +122,10 @@ void ATank::MoveLeftRight(const FInputActionValue & Value)
 
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Left/Right"));
 }
+
+
+// void Fire(const FInputActionInstance& Value)
+// {
+// 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
+// 				TEXT("...Input Action Left Mouse click..."));
+// }

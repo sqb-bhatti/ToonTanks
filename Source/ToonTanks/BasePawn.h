@@ -41,7 +41,9 @@ protected:
 	// Pass a location(LookAtTarget) in the world as a parameter to function and it will turn the turret towards that
 	// location
 	// Declared and defined in Base class so both childs Tank and Tower class can use it
-	void RotateTurret(FVector LookAtTarget); 
+	void RotateTurret(FVector LookAtTarget);
+
+	void Fire();
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
