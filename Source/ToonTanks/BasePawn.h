@@ -67,6 +67,10 @@ private:
 	// UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Super Duper Variables", meta = (AllowPrivateAccess = "true"))  // In event graph, it will be read only.
 	// int32 EditAnywhereInt = 22;
 
+
+	UPROPERTY(EditDefaultsOnly, Category = "Combat")
+	TSubclassOf<class AProjectile> ProjectileClass; // Using TSubclass to interact with Projectile blueprint
+													// 'ProjectileClass' name will be shown in Blueprints detail
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

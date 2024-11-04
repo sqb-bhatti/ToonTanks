@@ -3,6 +3,8 @@
 
 
 #include "BasePawn.h"
+
+#include "Projectile.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -68,17 +70,20 @@ void ABasePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 // Define in the Base class so both Tower and Tank classes can use it
 void ABasePawn::Fire()
 {
-	FVector ProjectileSpawnPointLocation = ProjectileSpawnPoint->GetComponentLocation();
+	FVector Location = ProjectileSpawnPoint->GetComponentLocation();
+	FRotator Rotation = ProjectileSpawnPoint->GetComponentRotation();
 	
-	DrawDebugSphere(
-		GetWorld(),  // returns a pointer to our current world
-		ProjectileSpawnPointLocation,
-		25.f,
-		12,
-		FColor::Red,
-		false,
-		3.f);
+	// DrawDebugSphere(
+	// 	GetWorld(),  // returns a pointer to our current world
+	// 	ProjectileSpawnPointLocation,
+	// 	25.f,
+	// 	12,
+	// 	FColor::Red,
+	// 	false,
+	// 	3.f);
 
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
 				TEXT("...Input Action Left Mouse click..."));
+
+	GetWorld()->SpawnActor<AProjectile>(ProjectileClass, Location, Rotation);
 }
