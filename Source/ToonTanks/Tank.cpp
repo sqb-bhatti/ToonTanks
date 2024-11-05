@@ -122,10 +122,3 @@ void ATank::MoveLeftRight(const FInputActionValue & Value)
 
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Left/Right"));
 }
-
-
-// void Fire(const FInputActionInstance& Value)
-// {
-// 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
-// 				TEXT("...Input Action Left Mouse click..."));
-// }
