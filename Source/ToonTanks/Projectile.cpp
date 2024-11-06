@@ -3,6 +3,8 @@
 
 #include "Projectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "GameFramework/DamageType.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -39,8 +41,24 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 				FVector NormalImpulse, const FHitResult& Hit)
 {
 	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("On Hit"));
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, HitComp->GetName());
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, OtherActor->GetName());
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, OtherComp->GetName());
+	
+	auto MyOwner = GetOwner();
+	if (MyOwner == nullptr) return;
+	
+	auto MyOwnerInstigator = MyOwner->GetInstigatorController();
+
+	// If we want to get the UClass of any particular class such as UDamageType we call a function 'StaticClass()'
+	auto DamageTypeClass = UDamageType::StaticClass();
+
+	// Check Other actor is not equal to this Actor because we don't want damage to ourselves
+	// Check other actor is not MyOwner because we don't want Projectile to cause damage to its owner
+	if(OtherActor && OtherActor != this && OtherActor != MyOwner)
+	{
+		// When we call this we will generate the damage event and 'OnTakeAnyDamage' delegate will broadcast
+		// in response to this. And it means that in 'HealthComponent' the function 'DamageTaken' will gets
+		// called
+		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwnerInstigator, this, DamageTypeClass);
+		Destroy();  // Destroy the projectile after damage
+	}
 }
 
