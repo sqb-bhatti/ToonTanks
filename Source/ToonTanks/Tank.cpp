@@ -109,7 +109,7 @@ void ATank::MoveForwardBackward(const FInputActionValue& Value)
 	DeltaLocation.X = Value[1] * Speed * UGameplayStatics::GetWorldDeltaSeconds(this);
 	AddActorLocalOffset(DeltaLocation);
 
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Forward/Backward"));
+	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Forward/Backward"));
 }
 
 
@@ -120,5 +120,5 @@ void ATank::MoveLeftRight(const FInputActionValue & Value)
 	NewRotation.Yaw = Value[1] * TurnRate * UGameplayStatics::GetWorldDeltaSeconds(this);
 	AddActorLocalRotation(NewRotation, true);
 
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Left/Right"));
+	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Left/Right"));
 }

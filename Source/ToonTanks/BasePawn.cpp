@@ -82,8 +82,8 @@ void ABasePawn::Fire()
 	// 	false,
 	// 	3.f);
 
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
-				TEXT("...Input Action Left Mouse click..."));
+	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
+	// 			TEXT("...Input Action Left Mouse click..."));
 
 	GetWorld()->SpawnActor<AProjectile>(ProjectileClass, Location, Rotation);
 }
