@@ -15,6 +15,10 @@ public:
 	// Sets default values for this pawn's properties
 	ABasePawn();
 
+	void HandleDestruction();
+
+
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite) // In event graph, it will be read & write both.
 	int32 VisibleAnywhereInt = 12;
 	

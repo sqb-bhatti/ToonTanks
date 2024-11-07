@@ -74,17 +74,17 @@ void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerControllerRef = Cast<APlayerController>(GetController());
+	TankPlayerController = Cast<APlayerController>(GetController());
 }
 
 void ATank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if(PlayerControllerRef)
+	if(TankPlayerController)
 	{
 		FHitResult HitResult;
-		PlayerControllerRef->GetHitResultUnderCursor(ECC_Visibility, false,
+		TankPlayerController->GetHitResultUnderCursor(ECC_Visibility, false,
 			HitResult);
 
 		DrawDebugSphere(
@@ -121,4 +121,14 @@ void ATank::MoveLeftRight(const FInputActionValue & Value)
 	AddActorLocalRotation(NewRotation, true);
 
 	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Left/Right"));
+}
+
+
+void ATank::HandleDestruction()
+{
+	Super::HandleDestruction();
+
+	// In case of Tank, we are not destroying Tank, we will hide and disable ticking of Tank
+	SetActorHiddenInGame(true);  // Hide the Tank
+	SetActorTickEnabled(false);  // Disable ticking for the Tank
 }

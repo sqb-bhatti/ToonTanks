@@ -24,6 +24,11 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void HandleDestruction();
+
+	// getter function to get player controller
+	APlayerController* GetTankPlayerController() const { return TankPlayerController; }
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -58,7 +63,7 @@ private:
 	class UInputAction * inputFire = nullptr;
 	
 
-	APlayerController* PlayerControllerRef;
+	APlayerController* TankPlayerController;
 	
 	// function which binds to Move forward axis mapping
 	void MoveForwardBackward(const FInputActionValue & Value);
