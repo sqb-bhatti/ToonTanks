@@ -11,10 +11,7 @@ void AToonTanksGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// We have a pointer to the Player Pawn in the form of a ATank pointer
-	Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
-
-	ToonTanksPlayerController = Cast<AToonTanksPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
+	HandleGameStart();
 }
 
 
@@ -33,8 +30,33 @@ void AToonTanksGameMode::ActorDied(AActor* DeadActor)
 			
 			ToonTanksPlayerController->SetPlayerEnabledState(false);
 		}
-	} else if(ATower* DestroyedTower = Cast<ATower>(DeadActor))
+	}
+	else if(ATower* DestroyedTower = Cast<ATower>(DeadActor))
 	{
 		DestroyedTower->HandleDestruction();
+	}
+}
+
+
+void AToonTanksGameMode::HandleGameStart()
+{
+	// We have a pointer to the Player Pawn in the form of a ATank pointer
+	Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
+
+	ToonTanksPlayerController = Cast<AToonTanksPlayerController>
+								(UGameplayStatics::GetPlayerController(this, 0));
+
+	// Start a countdown timer after which we enable user input
+	if(ToonTanksPlayerController)
+	{
+		ToonTanksPlayerController->SetPlayerEnabledState(false);
+
+		FTimerHandle PlayerEnableTimerHandle;
+		FTimerDelegate PlayerEnableTimerDelegate = FTimerDelegate::CreateUObject(ToonTanksPlayerController,
+						&AToonTanksPlayerController::SetPlayerEnabledState, true);
+
+		// Calling SetTimer using FTimerDelegate 
+		GetWorldTimerManager().SetTimer(PlayerEnableTimerHandle, PlayerEnableTimerDelegate,
+								StartDelay, false);
 	}
 }
