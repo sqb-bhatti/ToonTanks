@@ -46,6 +46,8 @@ void AToonTanksGameMode::HandleGameStart()
 	ToonTanksPlayerController = Cast<AToonTanksPlayerController>
 								(UGameplayStatics::GetPlayerController(this, 0));
 
+	StartGame();
+
 	// Start a countdown timer after which we enable user input
 	if(ToonTanksPlayerController)
 	{

@@ -20,6 +20,11 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	// Because this function is marked as 'BlueprintImplementableEvent', C++ doesn't expect us to write function body.
+	// Unreal Engine expects us to to give the functionality in blueprints. But we can call it from C++.
+	UFUNCTION(BlueprintImplementableEvent)
+	void StartGame();
+
 private:
 	class ATank* Tank;
 	class AToonTanksPlayerController* ToonTanksPlayerController;
