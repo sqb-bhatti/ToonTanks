@@ -43,7 +43,11 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("On Hit"));
 	
 	auto MyOwner = GetOwner();
-	if (MyOwner == nullptr) return;
+	if (MyOwner == nullptr)
+	{
+		Destroy();
+		return;
+	}
 	
 	auto MyOwnerInstigator = MyOwner->GetInstigatorController();
 
@@ -58,7 +62,15 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 		// in response to this. And it means that in 'HealthComponent' the function 'DamageTaken' will gets
 		// called
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwnerInstigator, this, DamageTypeClass);
-		Destroy();  // Destroy the projectile after damage
+
+		// Show the projectile hit particle
+		if(HitParticles)
+		{
+			UGameplayStatics::SpawnEmitterAtLocation(this, HitParticles,
+						GetActorLocation(), GetActorRotation());
+		}
 	}
+
+	Destroy();  // Destroy the projectile after damage
 }
 
