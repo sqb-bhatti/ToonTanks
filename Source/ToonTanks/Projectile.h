@@ -46,6 +46,12 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Combat")
 	UParticleSystemComponent* TrailParticles;
 
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	USoundBase* LaunchSound;  // Sound to be played when projectile launch
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	USoundBase* HitSound;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

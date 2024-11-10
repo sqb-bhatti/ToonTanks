@@ -32,6 +32,11 @@ void AProjectile::BeginPlay()
 	// 'AddDynamic' is the function we will use to bind our callback to 'OnComponentHit (multicast delegate)'
 	// and add that function to it's invocation list
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
+
+	if(LaunchSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, LaunchSound, GetActorLocation());
+	}
 }
 
 // Called every frame
@@ -72,6 +77,11 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 		{
 			UGameplayStatics::SpawnEmitterAtLocation(this, HitParticles,
 						GetActorLocation(), GetActorRotation());
+		}
+
+		if(HitSound)
+		{
+			UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation());
 		}
 	}
 

@@ -75,6 +75,13 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Combat")
 	TSubclassOf<class AProjectile> ProjectileClass; // Using TSubclass to interact with Projectile blueprint
 													// 'ProjectileClass' name will be shown in Blueprints detail
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	class UParticleSystem* DeathParticles;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	class USoundBase* DeathSound;
+	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
