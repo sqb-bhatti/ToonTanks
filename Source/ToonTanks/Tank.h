@@ -29,6 +29,8 @@ public:
 	// getter function to get player controller
 	APlayerController* GetTankPlayerController() const { return TankPlayerController; }
 
+	bool bAlive = true;  // check to see whether Tank is alive or dead
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

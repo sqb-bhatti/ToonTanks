@@ -86,7 +86,7 @@ void ABasePawn::Fire()
 	// 			TEXT("...Input Action Left Mouse click..."));
 
 	// Here the Actor (Projectile) was spawned at runtime and we are storing the pointer to that Actor in local variable 
-	auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, Location, Rotation);
+	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, Location, Rotation);
 	Projectile->SetOwner(this);
 }
 

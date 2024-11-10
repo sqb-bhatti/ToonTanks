@@ -51,17 +51,17 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 {
 	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("On Hit"));
 	
-	auto MyOwner = GetOwner();
+	AActor* MyOwner = GetOwner();
 	if (MyOwner == nullptr)
 	{
 		Destroy();
 		return;
 	}
 	
-	auto MyOwnerInstigator = MyOwner->GetInstigatorController();
+	AController* MyOwnerInstigator = MyOwner->GetInstigatorController();
 
 	// If we want to get the UClass of any particular class such as UDamageType we call a function 'StaticClass()'
-	auto DamageTypeClass = UDamageType::StaticClass();
+	UClass* DamageTypeClass = UDamageType::StaticClass();
 
 	// Check Other actor is not equal to this Actor because we don't want damage to ourselves
 	// Check other actor is not MyOwner because we don't want Projectile to cause damage to its owner

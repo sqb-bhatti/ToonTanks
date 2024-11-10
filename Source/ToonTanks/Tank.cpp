@@ -131,4 +131,5 @@ void ATank::HandleDestruction()
 	// In case of Tank, we are not destroying Tank, we will hide and disable ticking of Tank
 	SetActorHiddenInGame(true);  // Hide the Tank
 	SetActorTickEnabled(false);  // Disable ticking for the Tank
+	bAlive = false;
 }
