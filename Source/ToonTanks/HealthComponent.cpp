@@ -53,6 +53,6 @@ void UHealthComponent::DamageTaken(AActor* DamagedActor, float Damage, const UDa
 		ToonTanksGameMode->ActorDied(DamagedActor);
 	}
 	
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
-		FString::Printf(TEXT("Health: %f"), Health));
+	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
+	// 	FString::Printf(TEXT("Health: %f"), Health));
 }

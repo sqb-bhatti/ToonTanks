@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BasePawn.h"
+#include "AIController.h"
 #include "Tower.generated.h"
 
 
@@ -35,4 +36,6 @@ private:
 	void CheckFireCondition();   // callback function
 
 	bool InFireRange();
+
+	AAIController* TowerPlayerController;
 };

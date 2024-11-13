@@ -5,6 +5,7 @@
 #include "Tank.h"
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
+#include "WanderingController.h"
 
 
 void ATower::Tick(float DeltaTime)
@@ -27,6 +28,21 @@ void ATower::BeginPlay()
 	// Get a reference to the Tank
 	// PlayerIndex is set to 0 because single player games like this always have a player index is 0
 	Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
+
+
+	// TowerPlayerController = Cast<AWanderingController>(GetController());
+	//
+	// if(TowerPlayerController)
+	// {
+	// 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
+	// 	FString::Printf(TEXT("Health: %s"), TowerPlayerController));
+	// 	Cast<AWanderingController>(GetController())->RandomMovement();
+	// }
+	// else
+	// {
+	// 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
+	// 	FString::Printf(TEXT("TowerPlayerController is NULL")));
+	// }
 
 	// Start the timer from the beginning of the game
 	GetWorldTimerManager().SetTimer(FireRateTimerHandle, this, &ATower::CheckFireCondition,
