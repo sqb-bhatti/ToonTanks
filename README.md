@@ -37,7 +37,7 @@ https://github.com/user-attachments/assets/2a99c488-c654-4456-b7a7-6ac3d36e857a
 
 ## Build
 - Git clone it from the 'main' branch.
-- https://github.com/sqb-bhatti/ObstacleRunner.git
+- git@github.com:sqb-bhatti/ToonTanks.git
 - Open the .uproject file in Unreal Engine 5 and run it.
 
 <!-- Optional -->
